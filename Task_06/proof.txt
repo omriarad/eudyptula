@@ -1,0 +1,28 @@
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ make
+make -C /lib/modules/4.3.0-rc2-eudyptula-00019-gbcee19f-dirty/build M=/media/omri/Shared/Eudyptula/Task_06 modules;
+make[1]: Entering directory `/home/omri/linux'
+  CC [M]  /media/omri/Shared/Eudyptula/Task_06/hello_world.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /media/omri/Shared/Eudyptula/Task_06/hello_world.mod.o
+  LD [M]  /media/omri/Shared/Eudyptula/Task_06/hello_world.ko
+make[1]: Leaving directory `/home/omri/linux'
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ sudo insmod hello_world.ko
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ sudo chmod 777 /dev/eudyptula 
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ sudo cat /dev/eudyptula 
+91bc4039c624omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ sudo echo 91bc4039c624 > /dev/eudyptula 
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ sudo echo a > /dev/eudyptula 
+echo: write error: Operation not permitted
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ sudo rmmod hello_world 
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ dmesg
+[ 7194.695623] got minor 56
+[ 7194.695625] Hello World!
+[ 7207.067461] Device opened
+[ 7207.067473] Device closed
+[ 7217.426248] Device opened
+[ 7217.430755] Device closed
+[ 7224.902353] Device opened
+[ 7224.905295] Device closed
+[ 7237.414151] Goodbye cruel world!
+omri@omri-desktop:/media/omri/Shared/Eudyptula/Task_06$ 
+
