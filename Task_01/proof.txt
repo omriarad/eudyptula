@@ -1,0 +1,231 @@
+root@omri-desktop:/home/omri/Eudyptula/Task_01# dmesg -l debug
+[    0.000000] DMI: To Be Filled By O.E.M. To Be Filled By O.E.M./H87M, BIOS P2.10 12/06/2013
+[    0.000000] e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+[    0.000000] e820: remove [mem 0x000a0000-0x000fffff] usable
+[    0.000000] MTRR default type: uncachable
+[    0.000000] MTRR fixed ranges enabled:
+[    0.000000]   00000-9FFFF write-back
+[    0.000000]   A0000-BFFFF uncachable
+[    0.000000]   C0000-CFFFF write-protect
+[    0.000000]   D0000-E7FFF uncachable
+[    0.000000]   E8000-FFFFF write-protect
+[    0.000000] MTRR variable ranges enabled:
+[    0.000000]   0 base 0000000000 mask 7E00000000 write-back
+[    0.000000]   1 base 0200000000 mask 7FF0000000 write-back
+[    0.000000]   2 base 0210000000 mask 7FF8000000 write-back
+[    0.000000]   3 base 0218000000 mask 7FFC000000 write-back
+[    0.000000]   4 base 021C000000 mask 7FFE000000 write-back
+[    0.000000]   5 base 00E0000000 mask 7FE0000000 uncachable
+[    0.000000]   6 disabled
+[    0.000000]   7 disabled
+[    0.000000]   8 disabled
+[    0.000000]   9 disabled
+[    0.000000] original variable MTRRs
+[    0.000000] reg 0, base: 0GB, range: 8GB, type WB
+[    0.000000] reg 1, base: 8GB, range: 256MB, type WB
+[    0.000000] reg 2, base: 8448MB, range: 128MB, type WB
+[    0.000000] reg 3, base: 8576MB, range: 64MB, type WB
+[    0.000000] reg 4, base: 8640MB, range: 32MB, type WB
+[    0.000000] reg 5, base: 3584MB, range: 512MB, type UC
+[    0.000000] New variable MTRRs
+[    0.000000] reg 0, base: 0GB, range: 2GB, type WB
+[    0.000000] reg 1, base: 2GB, range: 1GB, type WB
+[    0.000000] reg 2, base: 3GB, range: 512MB, type WB
+[    0.000000] reg 3, base: 4GB, range: 4GB, type WB
+[    0.000000] reg 4, base: 8GB, range: 512MB, type WB
+[    0.000000] reg 5, base: 8672MB, range: 32MB, type UC
+[    0.000000] e820: update [mem 0xe0000000-0xffffffff] usable ==> reserved
+[    0.000000] Base memory trampoline at [ffff880000097000] 97000 size 24576
+[    0.000000]  [mem 0x00000000-0x000fffff] page 4k
+[    0.000000] BRK [0x01fd4000, 0x01fd4fff] PGTABLE
+[    0.000000] BRK [0x01fd5000, 0x01fd5fff] PGTABLE
+[    0.000000] BRK [0x01fd6000, 0x01fd6fff] PGTABLE
+[    0.000000]  [mem 0x21de00000-0x21dffffff] page 2M
+[    0.000000] BRK [0x01fd7000, 0x01fd7fff] PGTABLE
+[    0.000000]  [mem 0x200000000-0x21ddfffff] page 2M
+[    0.000000]  [mem 0x1e0000000-0x1ffffffff] page 1G
+[    0.000000]  [mem 0x00100000-0x001fffff] page 4k
+[    0.000000]  [mem 0x00200000-0x3fffffff] page 2M
+[    0.000000]  [mem 0x40000000-0xbfffffff] page 1G
+[    0.000000]  [mem 0xc0000000-0xc9bfffff] page 2M
+[    0.000000]  [mem 0xc9c00000-0xc9cdbfff] page 4k
+[    0.000000]  [mem 0xc9ce3000-0xc9dfffff] page 4k
+[    0.000000]  [mem 0xc9e00000-0xca3fffff] page 2M
+[    0.000000]  [mem 0xca400000-0xca5a2fff] page 4k
+[    0.000000] BRK [0x01fd8000, 0x01fd8fff] PGTABLE
+[    0.000000]  [mem 0xca83a000-0xca9fffff] page 4k
+[    0.000000]  [mem 0xcaa00000-0xdcffffff] page 2M
+[    0.000000]  [mem 0xdd000000-0xdd1fefff] page 4k
+[    0.000000] BRK [0x01fd9000, 0x01fd9fff] PGTABLE
+[    0.000000]  [mem 0xdd405000-0xdd441fff] page 4k
+[    0.000000]  [mem 0xddfff000-0xddffffff] page 4k
+[    0.000000]  [mem 0x100000000-0x1dfffffff] page 1G
+[    0.000000] ACPI: Local APIC address 0xfee00000
+[    0.000000]  [ffffea0000000000-ffffea00087fffff] PMD -> [ffff880215600000-ffff88021d5fffff] on node 0
+[    0.000000] On node 0 totalpages: 2076475
+[    0.000000]   DMA zone: 64 pages used for memmap
+[    0.000000]   DMA zone: 21 pages reserved
+[    0.000000]   DMA zone: 3996 pages, LIFO batch:0
+[    0.000000]   DMA32 zone: 14079 pages used for memmap
+[    0.000000]   DMA32 zone: 901023 pages, LIFO batch:31
+[    0.000000]   Normal zone: 18304 pages used for memmap
+[    0.000000]   Normal zone: 1171456 pages, LIFO batch:31
+[    0.000000] ACPI: Local APIC address 0xfee00000
+[    0.000000] ACPI: IRQ0 used by override.
+[    0.000000] ACPI: IRQ9 used by override.
+[    0.000000] pcpu-alloc: s86144 r8192 d32640 u262144 alloc=1*2097152
+[    0.000000] pcpu-alloc: [0] 0 1 2 3 4 5 6 7 
+[    0.000000] Calgary: detecting Calgary via BIOS EBDA area
+[    0.000000] Calgary: Unable to locate Rio Grande table in EBDA - bailing!
+[    0.000000] hpet clockevent registered
+[    0.060587] TSC deadline timer enabled
+[    0.188298] pci 0000:00:00.0: [8086:0c00] type 00 class 0x060000
+[    0.188369] pci 0000:00:14.0: [8086:8c31] type 00 class 0x0c0330
+[    0.188385] pci 0000:00:14.0: reg 0x10: [mem 0xf3200000-0xf320ffff 64bit]
+[    0.188436] pci 0000:00:14.0: PME# supported from D3hot D3cold
+[    0.188485] pci 0000:00:16.0: [8086:8c3a] type 00 class 0x078000
+[    0.188501] pci 0000:00:16.0: reg 0x10: [mem 0xf321b000-0xf321b00f 64bit]
+[    0.188555] pci 0000:00:16.0: PME# supported from D0 D3hot D3cold
+[    0.188608] pci 0000:00:1a.0: [8086:8c2d] type 00 class 0x0c0320
+[    0.188625] pci 0000:00:1a.0: reg 0x10: [mem 0xf3218000-0xf32183ff]
+[    0.188700] pci 0000:00:1a.0: PME# supported from D0 D3hot D3cold
+[    0.188758] pci 0000:00:1b.0: [8086:8c20] type 00 class 0x040300
+[    0.188771] pci 0000:00:1b.0: reg 0x10: [mem 0xf3210000-0xf3213fff 64bit]
+[    0.188830] pci 0000:00:1b.0: PME# supported from D0 D3hot D3cold
+[    0.188875] pci 0000:00:1c.0: [8086:8c10] type 01 class 0x060400
+[    0.188934] pci 0000:00:1c.0: PME# supported from D0 D3hot D3cold
+[    0.188986] pci 0000:00:1c.2: [8086:244e] type 01 class 0x060401
+[    0.189043] pci 0000:00:1c.2: PME# supported from D0 D3hot D3cold
+[    0.189090] pci 0000:00:1c.3: [8086:8c16] type 01 class 0x060400
+[    0.189147] pci 0000:00:1c.3: PME# supported from D0 D3hot D3cold
+[    0.189194] pci 0000:00:1c.4: [8086:8c18] type 01 class 0x060400
+[    0.189251] pci 0000:00:1c.4: PME# supported from D0 D3hot D3cold
+[    0.189305] pci 0000:00:1d.0: [8086:8c26] type 00 class 0x0c0320
+[    0.189322] pci 0000:00:1d.0: reg 0x10: [mem 0xf3217000-0xf32173ff]
+[    0.189397] pci 0000:00:1d.0: PME# supported from D0 D3hot D3cold
+[    0.189455] pci 0000:00:1f.0: [8086:8c4a] type 00 class 0x060100
+[    0.189584] pci 0000:00:1f.2: [8086:8c02] type 00 class 0x010601
+[    0.189596] pci 0000:00:1f.2: reg 0x10: [io  0xf070-0xf077]
+[    0.189602] pci 0000:00:1f.2: reg 0x14: [io  0xf060-0xf063]
+[    0.189608] pci 0000:00:1f.2: reg 0x18: [io  0xf050-0xf057]
+[    0.189613] pci 0000:00:1f.2: reg 0x1c: [io  0xf040-0xf043]
+[    0.189619] pci 0000:00:1f.2: reg 0x20: [io  0xf020-0xf03f]
+[    0.189624] pci 0000:00:1f.2: reg 0x24: [mem 0xf3216000-0xf32167ff]
+[    0.189655] pci 0000:00:1f.2: PME# supported from D3hot
+[    0.189696] pci 0000:00:1f.3: [8086:8c22] type 00 class 0x0c0500
+[    0.189707] pci 0000:00:1f.3: reg 0x10: [mem 0xf3215000-0xf32150ff 64bit]
+[    0.189723] pci 0000:00:1f.3: reg 0x20: [io  0xf000-0xf01f]
+[    0.189866] pci 0000:02:00.0: [1b21:1080] type 01 class 0x060401
+[    0.189984] pci 0000:00:1c.2:   bridge window [io  0x0000-0x0cf7] (subtractive decode)
+[    0.189985] pci 0000:00:1c.2:   bridge window [io  0x0d00-0xffff] (subtractive decode)
+[    0.189986] pci 0000:00:1c.2:   bridge window [mem 0x000a0000-0x000bffff] (subtractive decode)
+[    0.189987] pci 0000:00:1c.2:   bridge window [mem 0x000d0000-0x000d3fff] (subtractive decode)
+[    0.189988] pci 0000:00:1c.2:   bridge window [mem 0x000d4000-0x000d7fff] (subtractive decode)
+[    0.189988] pci 0000:00:1c.2:   bridge window [mem 0x000d8000-0x000dbfff] (subtractive decode)
+[    0.189989] pci 0000:00:1c.2:   bridge window [mem 0x000dc000-0x000dffff] (subtractive decode)
+[    0.189990] pci 0000:00:1c.2:   bridge window [mem 0x000e0000-0x000e3fff] (subtractive decode)
+[    0.189991] pci 0000:00:1c.2:   bridge window [mem 0x000e4000-0x000e7fff] (subtractive decode)
+[    0.189992] pci 0000:00:1c.2:   bridge window [mem 0xe0000000-0xfeafffff] (subtractive decode)
+[    0.190112] pci 0000:02:00.0:   bridge window [io  0x0000-0x0cf7] (subtractive decode)
+[    0.190112] pci 0000:02:00.0:   bridge window [io  0x0d00-0xffff] (subtractive decode)
+[    0.190113] pci 0000:02:00.0:   bridge window [mem 0x000a0000-0x000bffff] (subtractive decode)
+[    0.190114] pci 0000:02:00.0:   bridge window [mem 0x000d0000-0x000d3fff] (subtractive decode)
+[    0.190115] pci 0000:02:00.0:   bridge window [mem 0x000d4000-0x000d7fff] (subtractive decode)
+[    0.190116] pci 0000:02:00.0:   bridge window [mem 0x000d8000-0x000dbfff] (subtractive decode)
+[    0.190117] pci 0000:02:00.0:   bridge window [mem 0x000dc000-0x000dffff] (subtractive decode)
+[    0.190118] pci 0000:02:00.0:   bridge window [mem 0x000e0000-0x000e3fff] (subtractive decode)
+[    0.190118] pci 0000:02:00.0:   bridge window [mem 0x000e4000-0x000e7fff] (subtractive decode)
+[    0.190119] pci 0000:02:00.0:   bridge window [mem 0xe0000000-0xfeafffff] (subtractive decode)
+[    0.190175] pci 0000:04:00.0: [1969:10a1] type 00 class 0x020000
+[    0.190199] pci 0000:04:00.0: reg 0x10: [mem 0xf3100000-0xf313ffff 64bit]
+[    0.190209] pci 0000:04:00.0: reg 0x18: [io  0xe000-0xe07f]
+[    0.190316] pci 0000:04:00.0: PME# supported from D0 D1 D2 D3hot D3cold
+[    0.196941] pci 0000:00:1c.3:   bridge window [io  0xe000-0xefff]
+[    0.196944] pci 0000:00:1c.3:   bridge window [mem 0xf3100000-0xf31fffff]
+[    0.196996] pci 0000:05:00.0: [10de:1187] type 00 class 0x030000
+[    0.197009] pci 0000:05:00.0: reg 0x10: [mem 0xf2000000-0xf2ffffff]
+[    0.197021] pci 0000:05:00.0: reg 0x14: [mem 0xe8000000-0xefffffff 64bit pref]
+[    0.197033] pci 0000:05:00.0: reg 0x1c: [mem 0xf0000000-0xf1ffffff 64bit pref]
+[    0.197041] pci 0000:05:00.0: reg 0x24: [io  0xd000-0xd07f]
+[    0.197049] pci 0000:05:00.0: reg 0x30: [mem 0xf3000000-0xf307ffff pref]
+[    0.197141] pci 0000:05:00.1: [10de:0e0a] type 00 class 0x040300
+[    0.197154] pci 0000:05:00.1: reg 0x10: [mem 0xf3080000-0xf3083fff]
+[    0.204956] pci 0000:00:1c.4:   bridge window [io  0xd000-0xdfff]
+[    0.204958] pci 0000:00:1c.4:   bridge window [mem 0xe8000000-0xf30fffff]
+[    0.205979] libata version 3.00 loaded.
+[    0.209324] PCI: pci_cache_line_size set to 64 bytes
+[    0.209360] e820: reserve RAM buffer [mem 0x0009d800-0x0009ffff]
+[    0.209361] e820: reserve RAM buffer [mem 0xc9cdc000-0xcbffffff]
+[    0.209361] e820: reserve RAM buffer [mem 0xca5a3000-0xcbffffff]
+[    0.209362] e820: reserve RAM buffer [mem 0xdd1ff000-0xdfffffff]
+[    0.209363] e820: reserve RAM buffer [mem 0xdd442000-0xdfffffff]
+[    0.209364] e820: reserve RAM buffer [mem 0xde000000-0xdfffffff]
+[    0.209365] e820: reserve RAM buffer [mem 0x21e000000-0x21fffffff]
+[    0.215051] system 00:00: Plug and Play ACPI device, IDs PNP0c01 (active)
+[    0.215141] system 00:01: Plug and Play ACPI device, IDs PNP0c02 (active)
+[    0.215156] pnp 00:02: Plug and Play ACPI device, IDs PNP0b00 (active)
+[    0.215183] system 00:03: Plug and Play ACPI device, IDs INT3f0d PNP0c02 (active)
+[    0.215223] system 00:04: Plug and Play ACPI device, IDs PNP0c02 (active)
+[    0.215385] pnp 00:05: [dma 3]
+[    0.215440] pnp 00:05: Plug and Play ACPI device, IDs PNP0401 (active)
+[    0.215556] system 00:06: Plug and Play ACPI device, IDs PNP0c02 (active)
+[    0.215639] pnp 00:07: [dma 0 disabled]
+[    0.215659] pnp 00:07: Plug and Play ACPI device, IDs PNP0501 (active)
+[    0.215898] system 00:08: Plug and Play ACPI device, IDs PNP0c02 (active)
+[    0.221709] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7]
+[    0.221710] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff]
+[    0.221711] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff]
+[    0.221711] pci_bus 0000:00: resource 7 [mem 0x000d0000-0x000d3fff]
+[    0.221712] pci_bus 0000:00: resource 8 [mem 0x000d4000-0x000d7fff]
+[    0.221713] pci_bus 0000:00: resource 9 [mem 0x000d8000-0x000dbfff]
+[    0.221714] pci_bus 0000:00: resource 10 [mem 0x000dc000-0x000dffff]
+[    0.221715] pci_bus 0000:00: resource 11 [mem 0x000e0000-0x000e3fff]
+[    0.221716] pci_bus 0000:00: resource 12 [mem 0x000e4000-0x000e7fff]
+[    0.221716] pci_bus 0000:00: resource 13 [mem 0xe0000000-0xfeafffff]
+[    0.221717] pci_bus 0000:02: resource 4 [io  0x0000-0x0cf7]
+[    0.221718] pci_bus 0000:02: resource 5 [io  0x0d00-0xffff]
+[    0.221719] pci_bus 0000:02: resource 6 [mem 0x000a0000-0x000bffff]
+[    0.221720] pci_bus 0000:02: resource 7 [mem 0x000d0000-0x000d3fff]
+[    0.221721] pci_bus 0000:02: resource 8 [mem 0x000d4000-0x000d7fff]
+[    0.221722] pci_bus 0000:02: resource 9 [mem 0x000d8000-0x000dbfff]
+[    0.221722] pci_bus 0000:02: resource 10 [mem 0x000dc000-0x000dffff]
+[    0.221723] pci_bus 0000:02: resource 11 [mem 0x000e0000-0x000e3fff]
+[    0.221724] pci_bus 0000:02: resource 12 [mem 0x000e4000-0x000e7fff]
+[    0.221725] pci_bus 0000:02: resource 13 [mem 0xe0000000-0xfeafffff]
+[    0.221726] pci_bus 0000:03: resource 4 [io  0x0000-0x0cf7]
+[    0.221727] pci_bus 0000:03: resource 5 [io  0x0d00-0xffff]
+[    0.221727] pci_bus 0000:03: resource 6 [mem 0x000a0000-0x000bffff]
+[    0.221728] pci_bus 0000:03: resource 7 [mem 0x000d0000-0x000d3fff]
+[    0.221729] pci_bus 0000:03: resource 8 [mem 0x000d4000-0x000d7fff]
+[    0.221730] pci_bus 0000:03: resource 9 [mem 0x000d8000-0x000dbfff]
+[    0.221731] pci_bus 0000:03: resource 10 [mem 0x000dc000-0x000dffff]
+[    0.221732] pci_bus 0000:03: resource 11 [mem 0x000e0000-0x000e3fff]
+[    0.221732] pci_bus 0000:03: resource 12 [mem 0x000e4000-0x000e7fff]
+[    0.221733] pci_bus 0000:03: resource 13 [mem 0xe0000000-0xfeafffff]
+[    0.221734] pci_bus 0000:04: resource 0 [io  0xe000-0xefff]
+[    0.221735] pci_bus 0000:04: resource 1 [mem 0xf3100000-0xf31fffff]
+[    0.221736] pci_bus 0000:05: resource 0 [io  0xd000-0xdfff]
+[    0.221737] pci_bus 0000:05: resource 1 [mem 0xe8000000-0xf30fffff]
+[    0.255652] pci 0000:05:00.0: Video device with shadowed ROM
+[    0.255663] PCI: CLS 64 bytes, default 64
+[    0.444049] intel_idle: MWAIT substates: 0x42120
+[    0.444050] intel_idle: v0.4 model 0x3C
+[    0.444051] intel_idle: lapic_timer_reliable_states 0xffffffff
+[    0.467269] xhci_hcd 0000:00:14.0: cache line size of 64 is not supported
+[    0.473423] ehci-pci 0000:00:1a.0: cache line size of 64 is not supported
+[    0.488095] ehci-pci 0000:00:1d.0: cache line size of 64 is not supported
+[    0.508681] PM: Hibernation image not present or could not be loaded.
+[    0.529018] ahci 0000:00:1f.2: version 3.0
+[    0.877232] ata6.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succeeded
+[    0.878370] ata6.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succeeded
+[    0.879247] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    0.879525] sd 1:0:0:0: [sdb] Mode Sense: 00 3a 00 00
+[    0.880221] ata3.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succeeded
+[    0.881833] ata3.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succeeded
+[    0.902788] sr 2:0:0:0: Attached scsi CD-ROM sr0
+[    0.903200] sd 5:0:0:0: [sdc] Mode Sense: 00 3a 00 00
+[11785.422914] Hello world
+[11791.448769] Goodbye cruel world!
+[17069.022288] Hello World!
+[17073.796627] Goodbye cruel world!
+
