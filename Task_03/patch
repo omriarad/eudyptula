@@ -1,0 +1,11 @@
+--- Makefile.orig	2015-09-23 16:33:34.195716320 +0300
++++ Makefile	2015-09-23 15:10:23.111585138 +0300
+@@ -1,7 +1,7 @@
+ VERSION = 4
+ PATCHLEVEL = 3
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc2
++EXTRAVERSION = -rc2-eudyptula
+ NAME = Hurr durr I'ma sheep
+ 
+ # *DOCUMENTATION*

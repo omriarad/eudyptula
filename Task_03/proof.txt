@@ -1,0 +1,3 @@
+omri@omri-desktop:~$ uname -r
+4.3.0-rc2-eudyptula-00019-gbcee19f-dirty
+
