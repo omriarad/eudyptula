@@ -1,0 +1,4 @@
+omri@omri-desktop:~/linux$ uname -r ; cat .config | grep CONFIG_LOCALVERSION_AUTO
+4.3.0-rc2-00019-gbcee19f
+CONFIG_LOCALVERSION_AUTO=y
+
