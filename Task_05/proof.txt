@@ -1,30 +1,27 @@
-[ 2457.888635] </home/omri/Eudyptula/Task_05/hello_world.c:enter_module:39>
-[ 2457.888654] usbcore: registered new interface driver hello_world
-[ 2620.101842] usbcore: deregistering interface driver usbhid
-[ 2627.066431] usb 1-4: USB disconnect, device number 13
-[ 2628.419094] usb 1-4: new low-speed USB device number 14 using xhci_hcd
-[ 2628.622089] usb 1-4: New USB device found, idVendor=04d9, idProduct=1603
-[ 2628.622091] usb 1-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-[ 2628.622092] usb 1-4: Product: USB Keyboard
-[ 2628.622093] usb 1-4: Manufacturer:  
-[ 2628.622155] usb 1-4: ep 0x81 - rounding interval to 64 microframes, ep desc says 80 microframes
-[ 2628.622158] usb 1-4: ep 0x82 - rounding interval to 64 microframes, ep desc says 80 microframes
-[ 2628.623198] Hello World!
-[ 2628.631469] input: Microsoft  Microsoft Basic Optical Mouse v2.0  as /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13:1.0/0003:045E:00CB.0018/input/input37
-[ 2628.631699] hid-generic 0003:045E:00CB.0018: input,hidraw0: USB HID v1.11 Mouse [Microsoft  Microsoft Basic Optical Mouse v2.0 ] on usb-0000:00:14.0-13/input0
-[ 2628.647259] input:   USB Keyboard as /devices/pci0000:00/0000:00:14.0/usb1/1-4/1-4:1.1/0003:04D9:1603.0019/input/input38
-[ 2628.743830] hid-generic 0003:04D9:1603.0019: input,hidraw1: USB HID v1.10 Device [  USB Keyboard] on usb-0000:00:14.0-4/input1
-[ 2628.743859] usbcore: registered new interface driver usbhid
-[ 2628.743859] usbhid: USB HID core driver
-[ 2900.617603] systemd-hostnamed[6369]: Warning: nss-myhostname is not installed. Changing the local hostname might make it unresolveable. Please install nss-myhostname!
-[ 2916.415751] usb 1-4: USB disconnect, device number 14
-[ 2916.415778] Goodbye cruel world!
-[ 2959.520591] usb 1-4: new low-speed USB device number 15 using xhci_hcd
-[ 2959.724139] usb 1-4: New USB device found, idVendor=04d9, idProduct=1603
-[ 2959.724146] usb 1-4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-[ 2959.724150] usb 1-4: Product: USB Keyboard
-[ 2959.724153] usb 1-4: Manufacturer:  
-[ 2959.724416] usb 1-4: ep 0x81 - rounding interval to 64 microframes, ep desc says 80 microframes
-[ 2959.724424] usb 1-4: ep 0x82 - rounding interval to 64 microframes, ep desc says 80 microframes
-[ 2959.725626] Hello World!
-
+[ 1276.655086] Hello World!
+[ 1295.163767] usb 1-4: USB disconnect, device number 6
+[ 1312.674170] usb 1-3: new low-speed USB device number 7 using xhci_hcd
+[ 1312.877355] usb 1-3: New USB device found, idVendor=04d9, idProduct=1603
+[ 1312.877357] usb 1-3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[ 1312.877358] usb 1-3: Product: USB Keyboard
+[ 1312.877359] usb 1-3: Manufacturer:  
+[ 1312.877495] usb 1-3: ep 0x81 - rounding interval to 64 microframes, ep desc says 80 microframes
+[ 1312.877497] usb 1-3: ep 0x82 - rounding interval to 64 microframes, ep desc says 80 microframes
+[ 1312.887345] input:   USB Keyboard as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:04D9:1603.0007/input/input20
+[ 1312.942859] hid-generic 0003:04D9:1603.0007: input,hidraw1: USB HID v1.10 Keyboard [  USB Keyboard] on usb-0000:00:14.0-3/input0
+[ 1312.959464] input:   USB Keyboard as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.1/0003:04D9:1603.0008/input/input21
+[ 1313.014947] hid-generic 0003:04D9:1603.0008: input,hidraw2: USB HID v1.10 Device [  USB Keyboard] on usb-0000:00:14.0-3/input1
+[ 1352.300907] Goodbye cruel world!
+[ 2606.918016] usb 1-3: USB disconnect, device number 7
+[ 2609.883732] usb 1-3: new low-speed USB device number 8 using xhci_hcd
+[ 2610.087254] usb 1-3: New USB device found, idVendor=04d9, idProduct=1603
+[ 2610.087256] usb 1-3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[ 2610.087257] usb 1-3: Product: USB Keyboard
+[ 2610.087258] usb 1-3: Manufacturer:  
+[ 2610.087408] usb 1-3: ep 0x81 - rounding interval to 64 microframes, ep desc says 80 microframes
+[ 2610.087411] usb 1-3: ep 0x82 - rounding interval to 64 microframes, ep desc says 80 microframes
+[ 2610.097435] input:   USB Keyboard as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:04D9:1603.0009/input/input22
+[ 2610.152447] hid-generic 0003:04D9:1603.0009: input,hidraw1: USB HID v1.10 Keyboard [  USB Keyboard] on usb-0000:00:14.0-3/input0
+[ 2610.168541] input:   USB Keyboard as /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.1/0003:04D9:1603.000A/input/input23
+[ 2610.224489] hid-generic 0003:04D9:1603.000A: input,hidraw2: USB HID v1.10 Device [  USB Keyboard] on usb-0000:00:14.0-3/input1
+[ 2610.227223] Hello World!
