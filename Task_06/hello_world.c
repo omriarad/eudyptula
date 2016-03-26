@@ -9,7 +9,6 @@
 #include <linux/string.h>
 #include <linux/uaccess.h>
 
-#define INVALID_INPUT (-1)
 #define MY_ID ("91bc4039c624\n")
 #define ID_LEN (13)
 
@@ -31,11 +30,16 @@ static ssize_t eudyptula_write(struct file *file, const char __user *buf,
 				size_t len, loff_t *offset)
 {
 	char input[ID_LEN];
-	simple_write_to_buffer(input, ID_LEN - 1, offset, buf, len);
+	ssize_t err;
+
+	err = simple_write_to_buffer(input, ID_LEN - 1, offset, buf, len);
+	if (err < 0)
+		return err;
+
 	if (strncmp(input, MY_ID, ID_LEN - 1) == 0)
 		return ID_LEN;
 
-	return INVALID_INPUT;
+	return -EINVAL;
 }
 
 static ssize_t eudyptula_read(struct file *file, char __user *buf,
@@ -54,6 +58,7 @@ static struct miscdevice eudyptula = {
 static int __init enter_module(void)
 {
 	int retval;
+
 	retval = misc_register(&eudyptula);
 	pr_debug("Hello World!\n");
 	return retval;

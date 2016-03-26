@@ -2,6 +2,6 @@ root@omri-desktop:/home/omri/Eudyptula/Task_06# insmod hello_world.ko
 root@omri-desktop:/home/omri/Eudyptula/Task_06# cat /dev/eudyptula 
 91bc4039c624
 root@omri-desktop:/home/omri/Eudyptula/Task_06# echo 91bc4039c624 > /dev/eudyptula 
-root@omri-desktop:/home/omri/Eudyptula/Task_06# echo nop > /dev/eudyptula 
--bash: echo: write error: Operation not permitted
+omri@omri-desktop:~/Eudyptula/Task_06$ echo nope > /dev/eudyptula
+bash: echo: write error: Invalid argument
 root@omri-desktop:/home/omri/Eudyptula/Task_06# 
