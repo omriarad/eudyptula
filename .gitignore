@@ -1,0 +1,9 @@
+Task_*/.*.cmd
+Task_*/.tmp_versions/*
+Task_*/Module.symvers
+Task_*/*.ko
+Task_*/*.mod.c
+Task_01/hello_world.o
+*/modules.order
+*.o
+*~
