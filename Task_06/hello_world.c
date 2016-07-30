@@ -13,20 +13,6 @@
 #define ID_LEN (13)
 
 static ssize_t eudyptula_write(struct file *file, const char __user *buf,
-				size_t len, loff_t *offset);
-static ssize_t eudyptula_read(struct file *file, char __user *buf,
-				size_t len, loff_t *offset);
-
-static struct miscdevice eudyptula;
-
-
-static const struct file_operations eudyptula_fops = {
-	.write			= eudyptula_write,
-	.read			= eudyptula_read,
-};
-
-
-static ssize_t eudyptula_write(struct file *file, const char __user *buf,
 				size_t len, loff_t *offset)
 {
 	char input[ID_LEN];
@@ -48,6 +34,10 @@ static ssize_t eudyptula_read(struct file *file, char __user *buf,
 	return simple_read_from_buffer(buf, len, offset, MY_ID, ID_LEN);
 }
 
+static const struct file_operations eudyptula_fops = {
+	.write			= eudyptula_write,
+	.read			= eudyptula_read,
+};
 
 static struct miscdevice eudyptula = {
 	.minor = MISC_DYNAMIC_MINOR,
