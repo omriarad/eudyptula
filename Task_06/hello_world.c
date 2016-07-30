@@ -1,9 +1,6 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/init.h>
-#include <linux/usb.h>
-#include <linux/usb/input.h>
-#include <linux/hid.h>
 #include <linux/miscdevice.h>
 #include <linux/fs.h>
 #include <linux/string.h>
