@@ -1,0 +1,2 @@
+/ # cat /proc/version 
+Linux version 4.8.0-rc3-next-20160825 (omri@omri-desktop) (gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) ) #5 SMP Fri Aug 26 21:43:30 IDT 2016
