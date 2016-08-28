@@ -1,0 +1,34 @@
+omri@omri-desktop:~/reps/eudyptula/task_8$ cd /sys/kernel/debug/eudyptula/
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ ll
+total 0
+drwxrwxrwx  2 root root 0 אוג 29 00:31 ./
+drwxrwxrwx 30 root root 0 אוג 29 00:31 ../
+-rw-r--r--  1 root root 0 אוג 29 00:31 foo
+-rw-rw-rw-  1 root root 0 אוג 29 00:31 id
+-r--r--r--  1 root root 0 אוג 29 00:31 jiffies
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ cat id
+91bc4039c624
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ echo 91bc4039c624 > id
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ echo nope > id
+bash: echo: write error: Invalid argument
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ cat jiffies 
+4296254176
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ cat jiffies 
+4296254400
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ cat jiffies 
+4296254557
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ hexdump -C foo 
+00000000  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+*
+00001000
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ echo aaa > foo
+bash: foo: Permission denied
+omri@omri-desktop:/sys/kernel/debug/eudyptula$ sudo su
+[sudo] password for omri: 
+root@omri-desktop:/sys/kernel/debug/eudyptula# echo aaa > foo
+root@omri-desktop:/sys/kernel/debug/eudyptula# hexdump -C foo
+00000000  61 61 61 0a 00 00 00 00  00 00 00 00 00 00 00 00  |aaa.............|
+00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+*
+00001000
+root@omri-desktop:/sys/kernel/debug/eudyptula# 
