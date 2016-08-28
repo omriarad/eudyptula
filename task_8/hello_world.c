@@ -94,7 +94,7 @@ int __init enter_module(void)
 		goto err;
 	}
 
-	id_file = debugfs_create_file("id", 0755, debugfs_eudyptula_dir,
+	id_file = debugfs_create_file("id", 0666, debugfs_eudyptula_dir,
 		NULL, &eudyptula_fops);
 
 	if (id_file == NULL) {
