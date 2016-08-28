@@ -3,6 +3,7 @@
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/debugfs.h>
+#include <linux/jiffies.h>
 
 #define MY_ID ("91bc4039c624\n")
 #define ID_LEN (13)
@@ -38,7 +39,7 @@ static struct dentry *debugfs_eudyptula_dir;
 
 int __init enter_module(void)
 {
-	struct dentry *id_file;
+	struct dentry *id_file, *jiffies_file;
 
 	pr_debug("Hello World!\n");
 	debugfs_eudyptula_dir = debugfs_create_dir("eudyptula", NULL);
@@ -51,6 +52,14 @@ int __init enter_module(void)
 		NULL, &eudyptula_fops);
 
 	if (id_file == NULL) {
+		pr_err("could not create debugfs id file\n");
+		goto err_file;
+	}
+
+	jiffies_file = debugfs_create_u64("jiffies", 0444,
+		debugfs_eudyptula_dir, &jiffies_64);
+
+	if (jiffies_file == NULL) {
 		pr_err("could not create debugfs id file\n");
 		goto err_file;
 	}
