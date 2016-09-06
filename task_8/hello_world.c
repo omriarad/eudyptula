@@ -106,7 +106,7 @@ int __init enter_module(void)
 		debugfs_eudyptula_dir, &jiffies_64);
 
 	if (jiffies_file == NULL) {
-		pr_err("could not create debugfs id file\n");
+		pr_err("could not create debugfs jiffies file\n");
 		goto err_file;
 	}
 
