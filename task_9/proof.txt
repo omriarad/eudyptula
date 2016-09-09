@@ -1,0 +1,32 @@
+omri@omri-desktop:~$ cd /sys/kernel/eudyptula/
+omri@omri-desktop:/sys/kernel/eudyptula$ ll
+total 0
+drwxr-xr-x  2 root root    0 ספט  9 14:27 ./
+drwxr-xr-x 12 root root    0 ספט  9 14:27 ../
+-rw-rw-r--  1 root root 4096 ספט  9 14:27 foo
+-rw-rw-r--  1 root root 4096 ספט  9 14:27 id
+-r--r--r--  1 root root 4096 ספט  9 14:27 jiffes
+omri@omri-desktop:/sys/kernel/eudyptula$ cat id
+91bc4039c624
+omri@omri-desktop:/sys/kernel/eudyptula$ echo 91bc4039c624 > id
+bash: id: Permission denied
+omri@omri-desktop:/sys/kernel/eudyptula$ sudo su
+[sudo] password for omri:
+root@omri-desktop:/sys/kernel/eudyptula# echo 91bc4039c624 > id
+root@omri-desktop:/sys/kernel/eudyptula# echo 91bc4039c62 > id
+bash: echo: write error: Invalid argument
+root@omri-desktop:/sys/kernel/eudyptula# cat jiffes
+4296642482
+root@omri-desktop:/sys/kernel/eudyptula# cat jiffes
+4296642928
+root@omri-desktop:/sys/kernel/eudyptula# cat jiffes
+4296643165
+root@omri-desktop:/sys/kernel/eudyptula# echo aaa > foo
+root@omri-desktop:/sys/kernel/eudyptula# hexdump -C foo
+00000000  61 61 61                                          |aaa|
+00000003
+root@omri-desktop:/sys/kernel/eudyptula# python -c "with open('foo', 'wb') as f: f.write('a'*4096)"
+root@omri-desktop:/sys/kernel/eudyptula# hexdump -C foo
+00000000  61 61 61 61 61 61 61 61  61 61 61 61 61 61 61 61  |aaaaaaaaaaaaaaaa|
+*
+00000fff
