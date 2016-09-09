@@ -1,11 +1,11 @@
 omri@omri-desktop:~$ cd /sys/kernel/eudyptula/
 omri@omri-desktop:/sys/kernel/eudyptula$ ll
 total 0
-drwxr-xr-x  2 root root    0 ספט  9 14:27 ./
-drwxr-xr-x 12 root root    0 ספט  9 14:27 ../
--rw-rw-r--  1 root root 4096 ספט  9 14:27 foo
--rw-rw-r--  1 root root 4096 ספט  9 14:27 id
--r--r--r--  1 root root 4096 ספט  9 14:27 jiffes
+drwxr-xr-x  2 root root    0 ספט  9 15:23 ./
+drwxr-xr-x 11 root root    0 ספט  9 15:23 ../
+-rw-r--r--  1 root root 4096 ספט  9 15:23 foo
+-rw-r--r--  1 root root 4096 ספט  9 15:23 id
+-r--r--r--  1 root root 4096 ספט  9 15:23 jiffes
 omri@omri-desktop:/sys/kernel/eudyptula$ cat id
 91bc4039c624
 omri@omri-desktop:/sys/kernel/eudyptula$ echo 91bc4039c624 > id

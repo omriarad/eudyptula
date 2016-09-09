@@ -27,7 +27,7 @@ static ssize_t id_show(struct kobject *kobj, struct kobj_attribute *attr,
 }
 
 static struct kobj_attribute id_attribute =
-	__ATTR(id, 0664, id_show, id_store);
+	__ATTR_RW(id);
 
 static ssize_t jiffes_show(struct kobject *kobj, struct kobj_attribute *attr,
 				char *buf)
@@ -36,10 +36,10 @@ static ssize_t jiffes_show(struct kobject *kobj, struct kobj_attribute *attr,
 }
 
 static struct kobj_attribute jiffies_attribute =
-	__ATTR(jiffes, 0444, jiffes_show, NULL);
+	__ATTR_RO(jiffes);
 
 static void *foo_page;
-DEFINE_MUTEX(foo_lock);
+static DEFINE_MUTEX(foo_lock);
 
 static ssize_t foo_store(struct kobject *kobj, struct kobj_attribute *attr,
 				 const char *buf, size_t count)
@@ -72,7 +72,7 @@ err:
 }
 
 static struct kobj_attribute foo_attribute =
-	__ATTR(foo, 0664, foo_show, foo_store);
+	__ATTR_RW(foo);
 
 static struct attribute *attrs[] = {
 	&id_attribute.attr,
