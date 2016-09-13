@@ -1,0 +1,35 @@
+From 12bc1d1e9cb18176dcd80564067114b32d189d24 Mon Sep 17 00:00:00 2001
+From: Omri Arad <omriarad3@gmail.com>
+Date: Mon, 12 Sep 2016 21:02:25 +0300
+Subject: staging: rtl8712: fix coding style error reported from checkpatch
+
+removed the following:
+ERROR: code indent should use tabs where possible
+WARNING: please, no spaces at the start of a line
+WARNING: Statements should start on a tabstop
+
+Signed-off-by: Omri Arad <omriarad3@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/staging/rtl8712/rtl871x_ioctl_linux.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/staging/rtl8712/rtl871x_ioctl_linux.c b/drivers/staging/rtl8712/rtl871x_ioctl_linux.c
+index e205adf..475e790 100644
+--- a/drivers/staging/rtl8712/rtl871x_ioctl_linux.c
++++ b/drivers/staging/rtl8712/rtl871x_ioctl_linux.c
+@@ -1976,9 +1976,9 @@ static int r871x_get_ap_info(struct net_device *dev,
+ 	if (pdata->length >= 32) {
+ 		if (copy_from_user(data, pdata->pointer, 32))
+ 			return -EINVAL;
+-                data[32] = 0;
++		data[32] = 0;
+ 	} else {
+-		 return -EINVAL;
++		return -EINVAL;
+ 	}
+ 	spin_lock_irqsave(&(pmlmepriv->scanned_queue.lock), irqL);
+ 	phead = &queue->queue;
+-- 
+cgit v0.12
+
