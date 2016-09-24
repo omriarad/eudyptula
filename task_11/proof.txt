@@ -1,0 +1,30 @@
+omri@omri-desktop:~/reps/eudyptula/task_11$ ll /sys/devices/pci0000\:00/0000\:00\:1d.0/usb2/2-1/2-1.7/2-1.7\:1.0/
+total 0
+drwxr-xr-x 5 root root    0 ספט 24 20:01 ./
+drwxr-xr-x 6 root root    0 ספט 24 20:01 ../
+-rw-r--r-- 1 root root 4096 ספט 24 20:01 authorized
+-r--r--r-- 1 root root 4096 ספט 24 20:01 bAlternateSetting
+-r--r--r-- 1 root root 4096 ספט 24 20:01 bInterfaceClass
+-r--r--r-- 1 root root 4096 ספט 24 20:01 bInterfaceNumber
+-r--r--r-- 1 root root 4096 ספט 24 20:01 bInterfaceProtocol
+-r--r--r-- 1 root root 4096 ספט 24 20:01 bInterfaceSubClass
+-r--r--r-- 1 root root 4096 ספט 24 20:01 bmCapabilities
+-r--r--r-- 1 root root 4096 ספט 24 20:01 bNumEndpoints
+lrwxrwxrwx 1 root root    0 ספט 24 20:00 driver -> ../../../../../../../bus/usb/drivers/cdc_acm/
+drwxr-xr-x 3 root root    0 ספט 24 20:01 ep_82/
+-rw-r--r-- 1 root root 4096 ספט 24 20:01 eudyptula_id
+-r--r--r-- 1 root root 4096 ספט 24 20:01 modalias
+drwxr-xr-x 2 root root    0 ספט 24 20:01 power/
+lrwxrwxrwx 1 root root    0 ספט 24 20:00 subsystem -> ../../../../../../../bus/usb/
+-r--r--r-- 1 root root 4096 ספט 24 20:01 supports_autosuspend
+drwxr-xr-x 3 root root    0 ספט 24 20:01 tty/
+-rw-r--r-- 1 root root 4096 ספט 24 20:01 uevent
+omri@omri-desktop:~/reps/eudyptula/task_11$ cat /sys/devices/pci0000\:00/0000\:00\:1d.0/usb2/2-1/2-1.7/2-1.7\:1.0/eudyptula_id 
+91bc4039c624
+omri@omri-desktop:~/reps/eudyptula/task_11$ sudo su
+[sudo] password for omri: 
+root@omri-desktop:/home/omri/reps/eudyptula/task_11# echo 91bc4039c624 > /sys/devices/pci0000\:00/0000\:00\:1d.0/usb2/2-1/2-1.7/2-1.7\:1.0/eudyptula_id
+root@omri-desktop:/home/omri/reps/eudyptula/task_11# echo nop > /sys/devices/pci0000\:00/0000\:00\:1d.0/usb2/2-1/2-1.7/2-1.7\:1.0/eudyptula_id
+bash: echo: write error: Invalid argument
+root@omri-desktop:/home/omri/reps/eudyptula/task_11# 
+

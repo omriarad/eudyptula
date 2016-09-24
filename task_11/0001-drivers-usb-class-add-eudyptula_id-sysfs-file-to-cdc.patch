@@ -1,0 +1,72 @@
+From 16612b3fe2d574e01e4216bd51e4d9844de1d17b Mon Sep 17 00:00:00 2001
+From: Omri Arad <omriarad3@gmail.com>
+Date: Sat, 24 Sep 2016 20:07:27 +0300
+Subject: [PATCH] drivers: usb: class: add eudyptula_id sysfs file to cdc-acm
+
+Signed-off-by: Omri Arad <omriarad3@gmail.com>
+---
+ drivers/usb/class/cdc-acm.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
+index 94a14f5..eadfe32 100644
+--- a/drivers/usb/class/cdc-acm.c
++++ b/drivers/usb/class/cdc-acm.c
+@@ -267,6 +267,27 @@ static ssize_t show_country_rel_date
+ }
+ 
+ static DEVICE_ATTR(iCountryCodeRelDate, S_IRUGO, show_country_rel_date, NULL);
++
++#define MY_ID ("91bc4039c624\n")
++#define ID_LEN (13)
++
++static ssize_t eudyptula_id_store(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf, size_t count)
++{
++	if (strncmp(buf, MY_ID, ID_LEN - 1) == 0)
++		return ID_LEN;
++
++	return -EINVAL;
++}
++
++static ssize_t eudyptula_id_show(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	return sprintf(buf, MY_ID);
++}
++
++static DEVICE_ATTR_RW(eudyptula_id);
+ /*
+  * Interrupt handlers for various ACM device responses
+  */
+@@ -1484,6 +1505,10 @@ made_compressed_probe:
+ 
+ 	usb_set_intfdata(intf, acm);
+ 
++	i = device_create_file(&intf->dev, &dev_attr_eudyptula_id);
++	if (i < 0)
++		goto alloc_fail7;
++
+ 	i = device_create_file(&intf->dev, &dev_attr_bmCapabilities);
+ 	if (i < 0)
+ 		goto alloc_fail7;
+@@ -1556,6 +1581,7 @@ alloc_fail8:
+ 				&dev_attr_iCountryCodeRelDate);
+ 		kfree(acm->country_codes);
+ 	}
++	device_remove_file(&intf->dev, &dev_attr_eudyptula_id);
+ 	device_remove_file(&acm->control->dev, &dev_attr_bmCapabilities);
+ alloc_fail7:
+ 	usb_set_intfdata(intf, NULL);
+@@ -1614,6 +1640,7 @@ static void acm_disconnect(struct usb_interface *intf)
+ 				&dev_attr_iCountryCodeRelDate);
+ 	}
+ 	wake_up_all(&acm->wioctl);
++	device_remove_file(&acm->control->dev, &dev_attr_eudyptula_id);
+ 	device_remove_file(&acm->control->dev, &dev_attr_bmCapabilities);
+ 	usb_set_intfdata(acm->control, NULL);
+ 	usb_set_intfdata(acm->data, NULL);
+-- 
+2.5.0
+
