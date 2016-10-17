@@ -35,13 +35,11 @@ err:
 
 static struct identity *identity_find(int id)
 {
-	struct list_head *pos;
-	struct identity *cur;
+	struct identity *pos;
 
-	list_for_each(pos, &identities) {
-		cur = list_entry(pos, struct identity, list);
-		if (cur->id == id)
-			return cur;
+	list_for_each_entry(pos, &identities, list) {
+		if (pos->id == id)
+			return pos;
 	}
 
 	return NULL;
