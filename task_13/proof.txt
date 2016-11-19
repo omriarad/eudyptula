@@ -1,0 +1,5 @@
+root@omri-desktop:/home/omri/reps/eudyptula/task_13# head -n 3 /proc/slabinfo 
+slabinfo - version: 2.1
+# name            <active_objs> <num_objs> <objsize> <objperslab> <pagesperslab> : tunables <limit> <batchcount> <sharedfactor> : slabdata <active_slabs> <num_slabs> <sharedavail>
+eudyptula_identity      0     73     56   73    1 : tunables    0    0    0 : slabdata      1      1      0
+

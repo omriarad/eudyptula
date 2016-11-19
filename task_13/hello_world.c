@@ -4,21 +4,23 @@
 #include <linux/list.h>
 #include <linux/string.h>
 
-struct identity {
+struct eudyptula_identity {
 	char  name[20];
 	int   id;
 	bool  busy;
 	struct list_head list;
 };
 
+static struct kmem_cache *eudyptula_cache;
+
 static LIST_HEAD(identities);
 
 static int identity_create(char *name, int id)
 {
-	struct identity *new_identity;
+	struct eudyptula_identity *new_identity;
 	int retval = 0;
 
-	new_identity = kzalloc(sizeof(struct identity), GFP_KERNEL);
+	new_identity = kmem_cache_alloc(eudyptula_cache, GFP_KERNEL);
 	if (!new_identity) {
 		retval = -ENOMEM;
 		goto err;
@@ -33,9 +35,9 @@ err:
 	return retval;
 }
 
-static struct identity *identity_find(int id)
+static struct eudyptula_identity *identity_find(int id)
 {
-	struct identity *pos;
+	struct eudyptula_identity *pos;
 
 	list_for_each_entry(pos, &identities, list) {
 		if (pos->id == id)
@@ -47,7 +49,7 @@ static struct identity *identity_find(int id)
 
 static void identity_destroy(int id)
 {
-	struct identity *to_remove = identity_find(id);
+	struct eudyptula_identity *to_remove = identity_find(id);
 
 	if (!to_remove) {
 		pr_warn("%s: id %d not found in list\n", __func__, id);
@@ -55,13 +57,26 @@ static void identity_destroy(int id)
 	}
 
 	list_del(&to_remove->list);
-	kfree(to_remove);
+	kmem_cache_free(eudyptula_cache, to_remove);
 }
 
 int __init my_init(void)
 {
-	struct identity *temp;
+	struct eudyptula_identity *temp;
 	int retval = 0;
+
+	/*
+	 * Using debug flag SLAB_POISON so new cache isn't merged with
+	 * another, thus appearing in slabinfo
+	 */
+	eudyptula_cache = KMEM_CACHE(eudyptula_identity,
+				     SLAB_PANIC | SLAB_POISON);
+
+	if (!eudyptula_cache) {
+		pr_err("couldn't allocate kmem_cache\n");
+		retval = -ENOMEM;
+		goto kmem_cache_err;
+	}
 
 	retval |= identity_create("Alice", 1);
 	retval |= identity_create("Bob", 2);
@@ -69,7 +84,7 @@ int __init my_init(void)
 	retval |= identity_create("Gena", 10);
 	if (retval) {
 		pr_err("couldn't create identities\n");
-		goto err;
+		goto identity_err;
 	}
 
 	temp = identity_find(3);
@@ -79,19 +94,20 @@ int __init my_init(void)
 	if (temp == NULL)
 		pr_debug("id 42 not found\n");
 
-err:
+identity_err:
 	identity_destroy(2);
 	identity_destroy(1);
 	identity_destroy(10);
 	identity_destroy(42);
 	identity_destroy(3);
 
+kmem_cache_err:
 	return retval;
 }
 
 void __exit my_exit(void)
 {
-	;
+	kmem_cache_destroy(eudyptula_cache);
 }
 
 module_init(my_init);
