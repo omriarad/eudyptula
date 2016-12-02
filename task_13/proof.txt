@@ -1,5 +1,8 @@
-root@omri-desktop:/home/omri/reps/eudyptula/task_13# head -n 3 /proc/slabinfo 
+omri@ubuntu:~/reps/eudyptula/task_13$ sudo insmod hello_world.ko 
+omri@ubuntu:~/reps/eudyptula/task_13$ sudo head -n3 /proc/slabinfo 
 slabinfo - version: 2.1
 # name            <active_objs> <num_objs> <objsize> <objperslab> <pagesperslab> : tunables <limit> <batchcount> <sharedfactor> : slabdata <active_slabs> <num_slabs> <sharedavail>
-eudyptula_identity      0     73     56   73    1 : tunables    0    0    0 : slabdata      1      1      0
+eudyptula_identity     85     85     48   85    1 : tunables    0    0    0 : slabdata      1      1      0
+omri@ubuntu:~/reps/eudyptula/task_13$ cat /proc/cmdline 
+BOOT_IMAGE=/boot/vmlinuz-4.2.0-16-generic root=UUID=43aac66a-cc17-4ed3-b20c-96097026249f ro find_preseed=/preseed.cfg auto noprompt priority=critical locale=en_US quiet slab_nomerge
 

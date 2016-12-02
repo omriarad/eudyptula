@@ -65,12 +65,7 @@ int __init my_init(void)
 	struct eudyptula_identity *temp;
 	int retval = 0;
 
-	/*
-	 * Using debug flag SLAB_POISON so new cache isn't merged with
-	 * another, thus appearing in slabinfo
-	 */
-	eudyptula_cache = KMEM_CACHE(eudyptula_identity,
-				     SLAB_PANIC | SLAB_POISON);
+	eudyptula_cache = KMEM_CACHE(eudyptula_identity, SLAB_PANIC);
 
 	if (!eudyptula_cache) {
 		pr_err("couldn't allocate kmem_cache\n");
