@@ -65,7 +65,7 @@ int __init my_init(void)
 	struct eudyptula_identity *temp;
 	int retval = 0;
 
-	eudyptula_cache = KMEM_CACHE(eudyptula_identity, SLAB_PANIC);
+	eudyptula_cache = KMEM_CACHE(eudyptula_identity, 0);
 
 	if (!eudyptula_cache) {
 		pr_err("couldn't allocate kmem_cache\n");
