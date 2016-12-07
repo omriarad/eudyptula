@@ -1,5 +1,5 @@
 diff --git a/task_13/hello_world.c b/task_13/hello_world.c
-index ad8994c..0dd4c70 100644
+index ad8994c..e2713ec 100644
 --- a/task_13/hello_world.c
 +++ b/task_13/hello_world.c
 @@ -4,21 +4,23 @@
@@ -64,7 +64,7 @@ index ad8994c..0dd4c70 100644
 +	struct eudyptula_identity *temp;
  	int retval = 0;
  
-+	eudyptula_cache = KMEM_CACHE(eudyptula_identity, SLAB_PANIC);
++	eudyptula_cache = KMEM_CACHE(eudyptula_identity, 0);
 +
 +	if (!eudyptula_cache) {
 +		pr_err("couldn't allocate kmem_cache\n");
