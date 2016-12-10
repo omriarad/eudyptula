@@ -1,0 +1,90 @@
+From 97117d987049dbea23395d0dcc50d4c40d0a791f Mon Sep 17 00:00:00 2001
+From: Omri Arad <omriarad3@gmail.com>
+Date: Sat, 10 Dec 2016 17:25:15 +0200
+Subject: [PATCH] fs: proc: base: add new proc id file for each process
+
+Signed-off-by: Omri Arad <omriarad3@gmail.com>
+---
+ fs/proc/base.c            | 33 +++++++++++++++++++++++++++++++++
+ include/linux/init_task.h |  1 +
+ include/linux/sched.h     |  1 +
+ 3 files changed, 35 insertions(+)
+
+diff --git a/fs/proc/base.c b/fs/proc/base.c
+index a11eb71..5057b4f 100644
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -2807,6 +2807,38 @@ static int proc_pid_personality(struct seq_file *m, struct pid_namespace *ns,
+ 	return err;
+ }
+ 
++#define EUDYPTULA_ID_LEN (18)
++
++static ssize_t eudyptula_read(struct file *file, char __user *buf,
++				size_t len, loff_t *off)
++{
++	struct task_struct *task;
++	char id[EUDYPTULA_ID_LEN];
++	ssize_t retval;
++
++	if (*off != 0) {
++		retval = 0;
++		goto out;
++	}
++
++	task = get_proc_task(file_inode(file));
++	if (!task) {
++		retval = -ESRCH;
++		goto out;
++	}
++
++	snprintf(id, EUDYPTULA_ID_LEN, "%llx\n", task->eudyptula_id);
++	task->eudyptula_id++;
++	put_task_struct(task);
++	retval = simple_read_from_buffer(buf, len, off, id, EUDYPTULA_ID_LEN);
++out:
++	return retval;
++}
++
++static const struct file_operations eudyptula_fops = {
++	.read	= eudyptula_read,
++};
++
+ /*
+  * Thread groups
+  */
+@@ -2906,6 +2938,7 @@ static const struct pid_entry tgid_base_stuff[] = {
+ 	REG("timers",	  S_IRUGO, proc_timers_operations),
+ #endif
+ 	REG("timerslack_ns", S_IRUGO|S_IWUGO, proc_pid_set_timerslack_ns_operations),
++	REG("id", S_IRUGO, eudyptula_fops),
+ };
+ 
+ static int proc_tgid_base_readdir(struct file *file, struct dir_context *ctx)
+diff --git a/include/linux/init_task.h b/include/linux/init_task.h
+index f8834f8..e936286 100644
+--- a/include/linux/init_task.h
++++ b/include/linux/init_task.h
+@@ -260,6 +260,7 @@ extern struct task_group root_task_group;
+ 	INIT_VTIME(tsk)							\
+ 	INIT_NUMA_BALANCING(tsk)					\
+ 	INIT_KASAN(tsk)							\
++	.eudyptula_id	= 0x91bc4039c624				\
+ }
+ 
+ 
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 253538f..275defd 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1918,6 +1918,7 @@ struct task_struct {
+ #ifdef CONFIG_MMU
+ 	struct task_struct *oom_reaper_list;
+ #endif
++	unsigned long long eudyptula_id;
+ /* CPU-specific state of this task */
+ 	struct thread_struct thread;
+ /*
+-- 
+2.7.4
+

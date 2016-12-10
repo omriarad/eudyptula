@@ -1,0 +1,18 @@
+/ # cat /proc/1/id 
+91bc4039c624
+/ # cat /proc/1/id 
+91bc4039c625
+/ # cat /proc/2/id 
+91bc4039c624
+/ # cat /proc/2/id 
+91bc4039c625
+/ # cat /proc/1/id 
+91bc4039c626
+/ # cat /proc/1/id 
+91bc4039c627
+/ # cat /proc/1/id 
+91bc4039c628
+/ # cat /proc/2/id 
+91bc4039c626
+/ # cat /proc/version 
+Linux version 4.7.0+ (omri@omri-desktop) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.2) ) #42 Sat Dec 10 17:28:17 IST 2016
