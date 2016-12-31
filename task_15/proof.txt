@@ -1,0 +1,4 @@
+/ # ./syscall 
+/ # dmesg | tail -n2
+[    5.692749] arch/x86/kernel/eudyptula.c: ID matched
+[    5.692969] arch/x86/kernel/eudyptula.c: wrong ID
