@@ -1,0 +1,48 @@
+From 5a6f10098b4eef8edbbc59ff125172895e4219be Mon Sep 17 00:00:00 2001
+From: Omri Arad <omriarad3@gmail.com>
+Date: Sat, 14 Jan 2017 18:25:08 +0200
+Subject: [PATCH] drivers: staging: rts5208: fix endianness handling
+
+'cb' and 'sgb' were assigned __le values but were not marked as such,
+this fixes the following sparse warnings:
+
+drivers/staging/rts5208/rtsx_transport.c:220:34: warning: incorrect type in assignment (different base types)
+drivers/staging/rts5208/rtsx_transport.c:220:34:    expected unsigned int [unsigned] [usertype] <noident>
+drivers/staging/rts5208/rtsx_transport.c:220:34:    got restricted __le32 [usertype] <noident>
+drivers/staging/rts5208/rtsx_transport.c:319:44: warning: incorrect type in assignment (different base types)
+drivers/staging/rts5208/rtsx_transport.c:319:44:    expected unsigned long long [unsigned] [long] [long long] [usertype] <noident>
+drivers/staging/rts5208/rtsx_transport.c:319:44:    got restricted __le64 [usertype] <noident>
+drivers/staging/rts5208/rtsx_transport.c:319:44: warning: incorrect type in assignment (different base types)
+drivers/staging/rts5208/rtsx_transport.c:319:44:    expected unsigned long long [unsigned] [long] [long long] [usertype] <noident>
+drivers/staging/rts5208/rtsx_transport.c:319:44:    got restricted __le64 [usertype] <noident>
+
+Signed-off-by: Omri Arad <omriarad3@gmail.com>
+---
+ drivers/staging/rts5208/rtsx_transport.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/staging/rts5208/rtsx_transport.c b/drivers/staging/rts5208/rtsx_transport.c
+index 4d8e7c5..2379901 100644
+--- a/drivers/staging/rts5208/rtsx_transport.c
++++ b/drivers/staging/rts5208/rtsx_transport.c
+@@ -207,7 +207,7 @@ void rtsx_invoke_transport(struct scsi_cmnd *srb, struct rtsx_chip *chip)
+ void rtsx_add_cmd(struct rtsx_chip *chip,
+ 		  u8 cmd_type, u16 reg_addr, u8 mask, u8 data)
+ {
+-	u32 *cb = (u32 *)(chip->host_cmds_ptr);
++	__le32 *cb = (__le32 *)(chip->host_cmds_ptr);
+ 	u32 val = 0;
+ 
+ 	val |= (u32)(cmd_type & 0x03) << 30;
+@@ -300,7 +300,7 @@ int rtsx_send_cmd(struct rtsx_chip *chip, u8 card, int timeout)
+ static inline void rtsx_add_sg_tbl(
+ 	struct rtsx_chip *chip, u32 addr, u32 len, u8 option)
+ {
+-	u64 *sgb = (u64 *)(chip->host_sg_tbl_ptr);
++	__le64 *sgb = (__le64 *)(chip->host_sg_tbl_ptr);
+ 	u64 val = 0;
+ 	u32 temp_len = 0;
+ 	u8  temp_opt = 0;
+-- 
+2.7.4
+
