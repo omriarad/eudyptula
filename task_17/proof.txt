@@ -1,0 +1,15 @@
+omri@omri-desktop:~/reps/eudyptula/task_17$ sudo insmod hello_world.ko 
+omri@omri-desktop:~/reps/eudyptula/task_17$ dmesg | tail -n2
+[  499.188737] Hello World!
+[  499.188738] eudyptula_kthread going to sleep
+omri@omri-desktop:~/reps/eudyptula/task_17$ ll /dev/eudyptula 
+c-w--w--w- 1 root root 10, 53 ינו 28 17:48 /dev/eudyptula
+omri@omri-desktop:~/reps/eudyptula/task_17$ ps aux | grep eudyptula
+root      3717  0.0  0.0      0     0 ?        S    17:48   0:00 [eudyptula]
+omri      3730  0.0  0.0  14228   976 pts/6    S+   17:48   0:00 grep --color=auto eudyptula
+omri@omri-desktop:~/reps/eudyptula/task_17$ sudo rmmod hello_world 
+omri@omri-desktop:~/reps/eudyptula/task_17$ dmesg | tail -n4
+[  499.188737] Hello World!
+[  499.188738] eudyptula_kthread going to sleep
+[  531.318564] eudyptula_kthread woken
+[  531.318593] Goodbye cruel world!
