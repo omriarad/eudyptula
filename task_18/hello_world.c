@@ -10,6 +10,7 @@
 #include <linux/list.h>
 #include <linux/slab.h>
 #include <linux/delay.h>
+#include <linux/mutex.h>
 
 #define MAX_ID_LEN (20)
 #define EUDYPTULA ("eudyptula")
@@ -23,6 +24,7 @@ struct identity {
 
 static LIST_HEAD(identities);
 static DECLARE_WAIT_QUEUE_HEAD(wee_wait);
+static DEFINE_MUTEX(identity_lock);
 static struct task_struct *keudyptula;
 static int counter;
 
@@ -40,7 +42,12 @@ static int identity_create(char *name, int id)
 	strncpy(new_identity->name, name, sizeof(new_identity->name));
 	new_identity->id = id;
 	new_identity->busy = false;
+	retval = mutex_lock_interruptible(&identity_lock);
+	if (retval < 0)
+		goto err;
+
 	list_add(&new_identity->list, &identities);
+	mutex_unlock(&identity_lock);
 
 err:
 	return retval;
@@ -48,14 +55,24 @@ err:
 
 static struct identity *identity_get(void)
 {
-	struct identity *identity;
+	struct identity *identity = NULL;
+	int err;
+
+	err = mutex_lock_interruptible(&identity_lock);
+	if (err < 0) {
+		identity = ERR_PTR(err);
+		goto err;
+	}
 
 	if (list_empty(&identities))
-		return NULL;
+		goto err_mutex;
 
 	identity = list_entry(identities.next, struct identity, list);
 	list_del(&identity->list);
 
+err_mutex:
+	mutex_unlock(&identity_lock);
+err:
 	return identity;
 }
 

@@ -2,13 +2,12 @@ root@omri-desktop:/home/omri/reps/eudyptula/task_18# insmod hello_world.ko
 root@omri-desktop:/home/omri/reps/eudyptula/task_18# echo -n "Alice" > /dev/eudyptula
 root@omri-desktop:/home/omri/reps/eudyptula/task_18# echo -n "Bob" > /dev/eudyptula
 root@omri-desktop:/home/omri/reps/eudyptula/task_18# sleep 15
-
 root@omri-desktop:/home/omri/reps/eudyptula/task_18# echo -n "Dave" > /dev/eudyptula
 root@omri-desktop:/home/omri/reps/eudyptula/task_18# echo -n "Gena" > /dev/eudyptula
 root@omri-desktop:/home/omri/reps/eudyptula/task_18# rmmod hello_world.ko
 root@omri-desktop:/home/omri/reps/eudyptula/task_18# dmesg | tail -n 5
-[ 4754.160020] Hello World!
-[ 4759.714139] identity: 0 Alice
-[ 4764.718124] identity: 1 Bob
-[ 4774.718161] identity: 2 Dave
-[ 4774.718190] Goodbye cruel world!
+[ 3984.517709] Hello World!
+[ 3989.518955] identity: 0 Alice
+[ 3994.522867] identity: 1 Bob
+[ 4004.522629] identity: 2 Dave
+[ 4004.522651] Goodbye cruel world!
