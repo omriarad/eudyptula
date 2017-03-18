@@ -1,0 +1,15 @@
+omri@omri-desktop:~/reps/eudyptula/task_19$ sudo insmod netfilter.ko 
+omri@omri-desktop:~/reps/eudyptula/task_19$ dmesg | tail -n 1
+[  357.513094] netfilter registered.
+omri@omri-desktop:~/reps/eudyptula/task_19$ python -c "import socket; socket.socket(socket.AF_INET, socket.SOCK_DGRAM).sendto('91bc4039c624', ('localhost', 9999))"
+omri@omri-desktop:~/reps/eudyptula/task_19$ dmesg | tail -n 2
+[  365.942521] packet with 91bc4039c624 found
+[  365.942531] packet with 91bc4039c624 found
+omri@omri-desktop:~/reps/eudyptula/task_19$ python -c "import socket; socket.socket(socket.AF_INET, socket.SOCK_DGRAM).sendto('something', ('localhost', 9999))"
+omri@omri-desktop:~/reps/eudyptula/task_19$ dmesg | tail -n 2
+[  365.942521] packet with 91bc4039c624 found
+[  365.942531] packet with 91bc4039c624 found
+omri@omri-desktop:~/reps/eudyptula/task_19$ python -c "import socket; socket.socket(socket.AF_INET, socket.SOCK_DGRAM).sendto('91bc4039c624', ('localhost', 9999))"
+omri@omri-desktop:~/reps/eudyptula/task_19$ dmesg | tail -n 2
+[  381.655415] packet with 91bc4039c624 found
+[  381.655424] packet with 91bc4039c624 found
