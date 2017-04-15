@@ -1,0 +1,24 @@
+/tmp # dd if=/dev/zero of=/tmp/fatfs count=1 bs=50M
+1+0 records in
+1+0 records out
+/tmp # mkfs.fat fatfs 
+mkfs.fat 4.0 (2016-05-06)
+/tmp # mount /tmp/fatfs /run/
+/tmp # blkid | grep loop
+/dev/loop0: UUID="3C8A-3A80" TYPE="vfat"
+/tmp # ./test /run/ name
+Volume label changed
+/tmp # blkid | grep loop
+/dev/loop0: LABEL="name" UUID="3C8A-3A80" TYPE="vfat"
+/tmp # ./test /run/ new_name
+Volume label changed
+/tmp # blkid | grep loop
+/dev/loop0: LABEL="new_name" UUID="3C8A-3A80" TYPE="vfat"
+/tmp # umount /run/
+/tmp # mount /tmp/fatfs /run/
+/tmp # blkid | grep loop
+/dev/loop0: LABEL="new_name" UUID="3C8A-3A80" TYPE="vfat"
+/tmp # ./test /run/ changed
+Volume label changed
+/tmp # blkid | grep loop
+/dev/loop0: LABEL="changed" UUID="3C8A-3A80" TYPE="vfat"

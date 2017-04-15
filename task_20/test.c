@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#define FAT_IOCTL_SET_VOLUME_LABEL	_IOW('r', 0x14, __u32)
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +13,7 @@ int main(int argc, char *argv[])
 	int ret;
 
 	if (argc != 3) {
-		printf("Usage: %s FILENAME LABEL\n", argv[0]);
+		printf("Usage: %s PATH LABEL\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], 0);
