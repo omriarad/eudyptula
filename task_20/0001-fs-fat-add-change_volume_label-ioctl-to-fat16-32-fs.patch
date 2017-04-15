@@ -1,0 +1,188 @@
+From 86439dfca112b438233d2fb2b4887ff116b4b17f Mon Sep 17 00:00:00 2001
+From: Omri Arad <omriarad3@gmail.com>
+Date: Sat, 15 Apr 2017 16:26:49 +0300
+Subject: [PATCH] fs: fat: add change_volume_label ioctl to fat16/32 fs
+
+Signed-off-by: Omri Arad <omriarad3@gmail.com>
+---
+ fs/fat/dir.c                  | 20 +++++++++++
+ fs/fat/fat.h                  |  2 ++
+ fs/fat/file.c                 | 79 +++++++++++++++++++++++++++++++++++++++++++
+ include/uapi/linux/msdos_fs.h |  1 +
+ patch                         | 14 ++++++++
+ 5 files changed, 116 insertions(+)
+ create mode 100644 patch
+
+diff --git a/fs/fat/dir.c b/fs/fat/dir.c
+index 81cecbe..9f557da 100644
+--- a/fs/fat/dir.c
++++ b/fs/fat/dir.c
+@@ -1406,3 +1406,23 @@ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+ 	return err;
+ }
+ EXPORT_SYMBOL_GPL(fat_add_entries);
++
++int fat_find_volume_label(struct inode *inode,
++		struct fat_slot_info *sinfo)
++{
++	struct super_block *sb  = inode->i_sb;
++
++	sinfo->slot_off = 0;
++	sinfo->bh = NULL;
++	while (fat_get_entry(inode, &sinfo->slot_off, &sinfo->bh,
++			&sinfo->de) >= 0) {
++		if (sinfo->de->attr & ATTR_VOLUME) {
++			sinfo->slot_off -= sizeof(*sinfo->de);
++			sinfo->nr_slots = 1;
++			sinfo->i_pos = fat_make_i_pos(sb, sinfo->bh, sinfo->de);
++			return 0;
++		}
++	}
++	return -ENOENT;
++}
++EXPORT_SYMBOL_GPL(fat_find_volume_label);
+diff --git a/fs/fat/fat.h b/fs/fat/fat.h
+index e6b764a..0382cbc 100644
+--- a/fs/fat/fat.h
++++ b/fs/fat/fat.h
+@@ -410,6 +410,8 @@ extern void fat_time_fat2unix(struct msdos_sb_info *sbi, struct timespec *ts,
+ extern void fat_time_unix2fat(struct msdos_sb_info *sbi, struct timespec *ts,
+ 			      __le16 *time, __le16 *date, u8 *time_cs);
+ extern int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs);
++extern int fat_find_volume_label(struct inode *inode,
++		struct fat_slot_info *sinfo);
+ 
+ int fat_cache_init(void);
+ void fat_cache_destroy(void);
+diff --git a/fs/fat/file.c b/fs/fat/file.c
+index 3d04b12..15fc24d 100644
+--- a/fs/fat/file.c
++++ b/fs/fat/file.c
+@@ -121,6 +121,83 @@ static int fat_ioctl_get_volume_id(struct inode *inode, u32 __user *user_attr)
+ 	return put_user(sbi->vol_id, user_attr);
+ }
+ 
++static int fat_ioctl_set_volume_label(struct inode *dir, unsigned long arg)
++{
++	unsigned char new_label[MSDOS_NAME];
++	struct super_block *sb = dir->i_sb;
++	struct msdos_sb_info *sbi = MSDOS_SB(sb);
++	struct fat_slot_info sinfo;
++	struct msdos_dir_entry de;
++	struct buffer_head *bh, *bh32;
++	struct fat_boot_sector *b, *b32;
++	struct timespec current_time;
++	struct inode *label_inode;
++	__le16 date, time;
++	int err;
++
++	if (copy_from_user(new_label, (unsigned char *)arg, MSDOS_NAME))
++		return -EFAULT;
++	current_time = current_kernel_time();
++	fat_time_unix2fat(sbi, &current_time, &time, &date, NULL);
++	if (!fat_find_volume_label(dir, &sinfo)) {
++		mutex_lock(&sbi->s_lock);
++		memcpy(&sinfo.de->name, new_label, MSDOS_NAME);
++		label_inode = fat_build_inode(sb, sinfo.de, sinfo.i_pos);
++		label_inode->i_atime = label_inode->i_mtime = current_time;
++		mark_inode_dirty(label_inode);
++		iput(label_inode);
++		mutex_unlock(&sbi->s_lock);
++	/* If no label found create it */
++	} else {
++		memset(&de, '\0', sizeof(de));
++		memcpy(de.name, new_label, MSDOS_NAME);
++		de.attr = ATTR_VOLUME;
++		de.lcase = 0;
++		de.cdate = de.adate = 0;
++		de.ctime = 0;
++		de.ctime_cs = 0;
++		de.time = time;
++		de.date = date;
++		fat_set_start(&de, 0);
++		de.size = 0;
++		mutex_lock(&sbi->s_lock);
++		err = fat_add_entries(dir, &de, 1, &sinfo);
++		mutex_unlock(&sbi->s_lock);
++		if (err)
++			return err;
++	}
++	dir->i_ctime = dir->i_mtime = current_time;
++	dir->i_version++;
++	if (IS_DIRSYNC(dir))
++		(void)fat_sync_inode(dir);
++	else
++		mark_inode_dirty(dir);
++	/* Modify labels in boot sector */
++	if ((sb->s_flags & MS_RDONLY) || (sbi->dirty))
++		return -ENOTTY;
++	bh = sb_bread(sb, 0);
++	if (bh == NULL)
++		return -ENOTTY;
++	b = (struct fat_boot_sector *) bh->b_data;
++	if (sbi->fat_bits == 32) {
++		memcpy(b->fat32.vol_label, new_label, MSDOS_NAME);
++		bh32 = sb_bread(sb, b->fat32.backup_boot);
++		if (bh32) {
++			b32 = (struct fat_boot_sector *) bh32->b_data;
++			memcpy(b32->fat32.vol_label, new_label, MSDOS_NAME);
++			mark_buffer_dirty(bh32);
++			sync_dirty_buffer(bh32);
++			brelse(bh32);
++		}
++	} else {
++		memcpy(b->fat16.vol_label, new_label, MSDOS_NAME);
++	}
++	mark_buffer_dirty(bh);
++	sync_dirty_buffer(bh);
++	brelse(bh);
++	return 0;
++}
++
+ long fat_generic_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ {
+ 	struct inode *inode = file_inode(filp);
+@@ -133,6 +210,8 @@ long fat_generic_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ 		return fat_ioctl_set_attributes(filp, user_attr);
+ 	case FAT_IOCTL_GET_VOLUME_ID:
+ 		return fat_ioctl_get_volume_id(inode, user_attr);
++	case FAT_IOCTL_SET_VOLUME_LABEL:
++		return fat_ioctl_set_volume_label(inode, arg);
+ 	default:
+ 		return -ENOTTY;	/* Inappropriate ioctl for device */
+ 	}
+diff --git a/include/uapi/linux/msdos_fs.h b/include/uapi/linux/msdos_fs.h
+index e956704..aa3c7dc 100644
+--- a/include/uapi/linux/msdos_fs.h
++++ b/include/uapi/linux/msdos_fs.h
+@@ -106,6 +106,7 @@ struct __fat_dirent {
+ #define FAT_IOCTL_SET_ATTRIBUTES	_IOW('r', 0x11, __u32)
+ /*Android kernel has used 0x12, so we use 0x13*/
+ #define FAT_IOCTL_GET_VOLUME_ID		_IOR('r', 0x13, __u32)
++#define FAT_IOCTL_SET_VOLUME_LABEL	_IOW('r', 0x14, __u32)
+ 
+ struct fat_boot_sector {
+ 	__u8	ignored[3];	/* Boot strap short or near jump */
+diff --git a/patch b/patch
+new file mode 100644
+index 0000000..eedda0c
+--- /dev/null
++++ b/patch
+@@ -0,0 +1,14 @@
++diff --git a/fs/fat/fat.h b/fs/fat/fat.h
++index 1cd032b..0382cbc 100644
++--- a/fs/fat/fat.h
+++++ b/fs/fat/fat.h
++@@ -410,7 +410,8 @@ extern void fat_time_fat2unix(struct msdos_sb_info *sbi, struct timespec *ts,
++ extern void fat_time_unix2fat(struct msdos_sb_info *sbi, struct timespec *ts,
++ 			      __le16 *time, __le16 *date, u8 *time_cs);
++ extern int fat_sync_bhs(struct buffer_head **bhs, int nr_bhs);
++-extern int fat_find_label(struct inode *inode, struct fat_slot_info *sinfo);
+++extern int fat_find_volume_label(struct inode *inode,
+++		struct fat_slot_info *sinfo);
++ 
++ int fat_cache_init(void);
++ void fat_cache_destroy(void);
+-- 
+2.7.4
+
