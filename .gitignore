@@ -1,8 +1,8 @@
-task_*/.*.cmd
-task_*/.tmp_versions/*
-task_*/Module.symvers
-task_*/*.ko
-task_*/*.mod.c
+task*/.*.cmd
+task*/.tmp_versions/*
+task*/Module.symvers
+task*/*.ko
+task*/*.mod.c
 */modules.order
 *.o
 *~
